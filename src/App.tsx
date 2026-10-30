@@ -168,7 +168,7 @@ function App() {
   }, [preferences]);
 
   useEffect(() => {
-    const city = selectedDestination?.name ?? preferences.destination || 'Paris';
+    const city = selectedDestination?.name ?? (preferences.destination || 'Paris');
     requestJson<{ days: WeatherDay[] }>(`/api/weather?city=${encodeURIComponent(city)}&days=5`).then((data) => {
       if (data?.days?.length) {
         setWeather(data.days);
