@@ -1,2 +1,5 @@
-# travelmate-ai-app
-Travel planning web app inspired by TravelMate AI for trip discovery, planning, and packing.
+OPENAI_API_KEY=
+WEATHER_API_KEY=
+MAPBOX_TOKEN=
+PORT=3001
+VITE_API_BASE_URL=http://localhost:3001/api
