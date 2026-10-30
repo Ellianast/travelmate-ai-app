@@ -1,11 +1,15 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 dotenv.config();
 
 const app = express();
 const PORT = Number(process.env.PORT || 3001);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const clientDist = path.resolve(__dirname, '../dist');
 
 const destinationCatalog = [
   { name: 'Paris', country: 'France', region: 'Europe', description: 'Romantic city breaks and culinary classics.', bestFor: ['Culture', 'Food'] },
@@ -152,6 +156,12 @@ app.get('/api/weather', async (req, res) => {
   }
 
   res.json({ city, days: createWeatherForecast(city, days) });
+});
+
+// Serve the compiled React app from the same service in production.
+app.use(express.static(clientDist));
+app.get('*', (_req, res) => {
+  res.sendFile(path.join(clientDist, 'index.html'));
 });
 
 app.listen(PORT, () => {
